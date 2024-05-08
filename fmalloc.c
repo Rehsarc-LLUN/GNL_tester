@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include "test.h"
 
 extern size_t	malloc_counter;
 

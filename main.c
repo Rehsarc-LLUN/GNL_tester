@@ -1,8 +1,4 @@
-#include <fcntl.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "get_next_line.h"
+#include "test.h"
 
 #define malloc(size) fail_malloc(size)
 
