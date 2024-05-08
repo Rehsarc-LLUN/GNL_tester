@@ -6,8 +6,8 @@
 
 #define malloc(size) fail_malloc(size)
 
-size_t	read_counter = 0;
-size_t	malloc_counter = 1;
+extern size_t	read_counter;
+extern size_t	malloc_counter;
 
 void	exit_signal(int sig)
 {
