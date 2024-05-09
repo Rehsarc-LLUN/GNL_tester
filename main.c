@@ -2,8 +2,8 @@
 
 #define malloc(size) fail_malloc(size)
 
-extern size_t	read_counter;
-extern size_t	malloc_counter;
+size_t	read_counter = 0;
+int	malloc_counter = 1;
 
 void	exit_signal(int sig)
 {
@@ -61,7 +61,7 @@ int	main(void)
 
 __attribute__((destructor)) static void	destructor(void)
 {
-	system("leaks -q gnl && ./ok_status.sh || ./ko_status.sh");
+	system("leaks -q gnl >& /dev/null && bash ok_status.sh >> result.txt|| bash ko_status.sh >> result.txt");
 }
 
 #endif

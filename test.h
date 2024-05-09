@@ -12,9 +12,6 @@
 #define malloc(size) fail_malloc(size)
 #define read(fildes, buf, nbyte) read_counter_func(fildes, buf, nbyte)
 
-size_t	read_counter = 0;
-size_t	malloc_counter = 1;
-
 ssize_t    read_counter_func(int fildes, void *buf, size_t nbyte);
 void	*fail_malloc(size_t size);
 
