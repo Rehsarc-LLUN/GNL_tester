@@ -6,7 +6,9 @@ SRCS="get_next_line.c get_next_line_utils.c main.c fmalloc.c read_counter.c"
 OK="\033[0;32m[OK]\033[0m"
 KO="\033[0;31m[KO]\033[0m"
 
-echo "BUFFER_SIZE TEST LEAK READ MALLOC STATIC" > result.txt
+echo "BUFFER_\\_TESTCASE TEST LEAK READ MALLOC STATIC" > result.txt
+
+bash print_result.sh
 
 for BUFFER_SIZE in {1..10}; do
 	$CC $CFLAGS $SRCS -o $NAME -D BUFFER_SIZE=$BUFFER_SIZE -D N=-1
@@ -17,13 +19,14 @@ for BUFFER_SIZE in {1..10}; do
 	else
 		bash ko_status.sh >> result.txt
 	fi
+	bash print_result.sh
 	printf " " >> result.txt
 	$CC $CFLAGS $SRCS -o $NAME -D BUFFER_SIZE=$BUFFER_SIZE -D N=-1 -D LEAKS
 	./$NAME
 	printf "\n" >> result.txt
+	bash print_result.sh
 done
 
-cat result.txt | column -t -s " "
 rm result.txt
 
 make clean
