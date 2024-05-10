@@ -28,7 +28,7 @@ function print_result {
 
 # Check if the program can compile and run without any error
 function test_normal {
-	$CC $CFLAGS $SRCS -o $NAME -D BUFFER_SIZE=$BUFFER_SIZE -D N=-1 2>&1 > /dev/null
+	$CC $CFLAGS $SRCS -o $NAME -D BUFFER_SIZE=$BUFFER_SIZE -D N=-1 2> /dev/null
 	if [ "$?" -ne 0 ]; then
 		bash print_status.sh CompileError >> result.txt
 		printf " " >> result.txt
