@@ -6,6 +6,7 @@ CFLAGS = -Wall -Wextra -Werror -I.
 SRCS := get_next_line.c get_next_line_utils.c main.c fmalloc.c read_counter.c
 
 all: 
+	@make clean
 	@cp ../get_next_line.c .
 	@cp ../get_next_line_utils.c .
 	@cp ../get_next_line.h .

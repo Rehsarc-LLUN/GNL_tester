@@ -5,15 +5,19 @@
 size_t	read_counter = 0;
 int	malloc_counter = 1;
 
+// 128 + 11 (signal number) = 139
+// 128 + 10 (signal number) = 138
+// 128 + 6 (signal number) = 134
 void	exit_signal(int sig)
 {
-    if (sig == SIGSEGV) {
-        exit(1);
-    } else if (sig == SIGBUS) {
-        exit(2);
-    } else if (sig == SIGABRT) {
-        exit(134);
-    }
+	// if (sig == SIGSEGV)
+	// 	exit(139);
+	// else if (sig == SIGBUS)
+	// 	exit(138);
+	// else if (sig == SIGABRT)
+	// 	exit(134);
+	(void)sig;
+	exit(139);
 }
 
 void	signal_handler(void)
@@ -61,7 +65,9 @@ int	main(void)
 
 __attribute__((destructor)) static void	destructor(void)
 {
-	system("leaks -q gnl >& /dev/null && bash ok_status.sh >> result.txt|| bash ko_status.sh >> result.txt");
+	system("leaks -q gnl >& /dev/null && \
+		bash print_status.sh OK >> result.txt || \
+		bash print_status.sh LEAK >> result.txt");
 }
 
 #endif
