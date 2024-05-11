@@ -12,5 +12,5 @@ git clone https://github.com:Rehsarc-LLUN/GNL_tester.git
 2. Run the script with the following command:
 ```bash
 cd GNL_tester
-make test
+make
 ```
