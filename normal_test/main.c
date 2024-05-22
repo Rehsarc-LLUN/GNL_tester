@@ -8,6 +8,10 @@
 #include <stdbool.h>
 #include "get_next_line.h"
 
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define RESET "\033[0m"
+
 #define TIMEOUT_US 1000000
 
 void	exit_signal(int sig)
@@ -50,12 +54,11 @@ void print_state(int status) {
     } if (WIFSIGNALED(status)) {
 		exit_status = WTERMSIG(status) + 128;
 	}
-	if (exit_status == 0) printf("OK");
-	else if (exit_status == 134) printf("ABORTED");
-	else if (exit_status == 138) printf("BUS ERROR");
-	else if (exit_status == 139) printf("SEGV");
-	else printf("KO");
-	// printf("exit_status -> %d\n", exit_status);
+	if (exit_status == 0) printf("%s✔ %s", GREEN, RESET);
+	else if (exit_status == 134) printf("%sABRT %s", RED, RESET);
+	else if (exit_status == 138) printf("%sBUS %s", RED, RESET);
+	else if (exit_status == 139) printf("%sSEGV %s", RED, RESET);
+	else printf("%s✘ %s", RED, RESET);
 }
 
 int	main(int argc, char **argv)
@@ -73,7 +76,7 @@ int	main(int argc, char **argv)
 			int result = waitpid(pid, &status, WNOHANG);
 			if (result == 0) {
 				kill(pid, 9);
-				printf("TIMEOUT");
+				printf("%sTIMEOUT %s", RED, RESET);
 				is_timeout = true;
 			}
 		}

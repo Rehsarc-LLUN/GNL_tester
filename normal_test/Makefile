@@ -4,8 +4,31 @@ SRC=main.c ../get_next_line.c ../get_next_line_utils.c -I../
 NAME=gnl_tester
 
 all:
-	@$(CC) $(CFLAGS) $(SRC) -o $(NAME)  2>/dev/null || echo "Compilation failed"
+	@echo "Running normal test"
+	@$(CC) $(CFLAGS) $(SRC) -o $(NAME) -D BUFFER_SIZE=1 2> /dev/null || (echo "Compilation failed" && exit 1)
+	@printf "BUFFER_SIZE = 1      "
 	@./$(NAME) ../gnl_test_files/normalTest 2>/dev/null
+	@./$(NAME) ../gnl_test_files/normalTest1 2>/dev/null
+	@./$(NAME) ../gnl_test_files/normalTest2 2>/dev/null
+	@./$(NAME) ../gnl_test_files/normalTest3 2>/dev/null
+	@$(CC) $(CFLAGS) $(SRC) -o $(NAME) -D BUFFER_SIZE=4 2> /dev/null || (echo "Compilation failed" && exit 1)
+	@printf "\nBUFFER_SIZE = 4      "
+	@./$(NAME) ../gnl_test_files/normalTest 2>/dev/null
+	@./$(NAME) ../gnl_test_files/normalTest1 2>/dev/null
+	@./$(NAME) ../gnl_test_files/normalTest2 2>/dev/null
+	@./$(NAME) ../gnl_test_files/normalTest3 2>/dev/null
+	@$(CC) $(CFLAGS) $(SRC) -o $(NAME) -D BUFFER_SIZE=42 2> /dev/null || (echo "Compilation failed" && exit 1)
+	@printf "\nBUFFER_SIZE = 42     "
+	@./$(NAME) ../gnl_test_files/normalTest 2>/dev/null
+	@./$(NAME) ../gnl_test_files/normalTest1 2>/dev/null
+	@./$(NAME) ../gnl_test_files/normalTest2 2>/dev/null
+	@./$(NAME) ../gnl_test_files/normalTest3 2>/dev/null
+	@$(CC) $(CFLAGS) $(SRC) -o $(NAME) -D BUFFER_SIZE=100000 2> /dev/null || (echo "Compilation failed" && exit 1)
+	@printf "\nBUFFER_SIZE = 100000 "
+	@./$(NAME) ../gnl_test_files/normalTest 2>/dev/null
+	@./$(NAME) ../gnl_test_files/normalTest1 2>/dev/null
+	@./$(NAME) ../gnl_test_files/normalTest2 2>/dev/null
+	@./$(NAME) ../gnl_test_files/normalTest3 2>/dev/null
 
 clean:
 	@rm -rf $(NAME)
