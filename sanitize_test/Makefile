@@ -1,10 +1,11 @@
-CC=clang
-CFLAGS=-Wall -Wextra -Werror -g
+# CC=clang
+CC=cc
+CFLAGS=-Wall -Wextra -Werror -g -fsanitize=address
 SRC=main.c ../get_next_line.c ../get_next_line_utils.c -I../
 NAME=gnl_tester
 
 all:
-	@printf "\nRunning normal test\n"
+	@printf "\nRunning sanitize test\n"
 	@$(CC) $(CFLAGS) $(SRC) -o $(NAME) -D BUFFER_SIZE=1 2> /dev/null || (echo "Compilation failed" && exit 1)
 	@printf "BUFFER_SIZE = 1      "
 	@./$(NAME) ../gnl_test_files/normalTest 2>/dev/null
@@ -29,6 +30,7 @@ all:
 	@./$(NAME) ../gnl_test_files/normalTest1 2>/dev/null
 	@./$(NAME) ../gnl_test_files/normalTest2 2>/dev/null
 	@./$(NAME) ../gnl_test_files/normalTest3 2>/dev/null
+	@printf "\n"
 
 clean:
 	@rm -rf $(NAME)

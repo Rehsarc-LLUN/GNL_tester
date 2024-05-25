@@ -1,8 +1,6 @@
 all: 
 	@make clean
-	@cp ../get_next_line.c .
-	@cp ../get_next_line_utils.c .
-	@cp ../get_next_line.h .
+	@make copy
 	@make normal
 	@make sanitize
 	@make leak
@@ -12,6 +10,8 @@ all:
 
 clean:
 	@rm -f $(NAME) get_next_line.c get_next_line_utils.c get_next_line.h
+	@make -C normal_test clean
+	@make -C sanitize_test clean
 
 fclean: clean
 
@@ -19,12 +19,21 @@ re: fclean all
 
 .PHONY: all clean fclean re
 
+copy:
+	@cp ../get_next_line.c .
+	@cp ../get_next_line_utils.c .
+	@cp ../get_next_line.h .
+
+.PHONY: copy
+
 # OK, KO, SEGV, TIMEOUT, CompileError
 normal:
+	@make copy
 	@make -C normal_test
 
 # OK, KO, SEGV, TIMEOUT, CompileError
 sanitize:
+	@make copy
 	@make -C sanitize_test
 
 # OK, KO, SEGV, TIMEOUT, LEAK, CompileError
